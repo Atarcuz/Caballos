@@ -1,9 +1,3 @@
-<%-- 
-    Document   : index
-    Created on : 03-abr-2019, 11:06:40
-    Author     : salak405
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
