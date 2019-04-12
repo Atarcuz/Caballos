@@ -7,6 +7,7 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+    
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,6 +33,9 @@ public class Apuesta extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        request.setAttribute("jugadores", "xd");
+        request.getRequestDispatcher("main.jsp").forward(request, response);
         try (PrintWriter out = response.getWriter()) {
             String nombreJ1,nombreJ2,nombreJ3,nombreJ4;
             double apuesta1,apuesta2,apuesta3,apuesta4;
@@ -44,46 +48,46 @@ public class Apuesta extends HttpServlet {
             apuesta1=Double.parseDouble(request.getParameter("txtApuesta1"));
             apuesta2=Double.parseDouble(request.getParameter("txtApuesta2"));
             apuesta3=Double.parseDouble(request.getParameter("txtApuesta3"));
-            apuesta4=Double.parseDouble(request.getParameter("txtApuesta4"));*/
-            
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Apuesta</title>");            
-            out.println("</head>");
-            out.println("<body>");
-                out.println("<center>");
-                    out.println("<h1>HORSE GAME</h1><br><br>");
-                    out.println("<table>");
-                        out.println("<tr>");
-                            out.println("<td><h2>Numero caballo:</h2></td> \n" +
-                        "                <td><h2><center>1</center></h2></td>\n" +
-                        "                <td><h2><center>2</center></h2></td>\n" +
-                        "                <td><h2><center>3</center></h2></td>\n" +
-                        "                <td><h2><center>4</center></h2></td>");
-                        out.println("</tr>");
-                        out.println("<tr>");
-                        out.println("<td><h2>Presentacion:</h2></td>\n" +
-                                    "<td><img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Palomino_Horse.jpg/220px-Palomino_Horse.jpg\" \n" +
-                                    "  width=200 height=150 /></td>\n" +
-                                    "<td><img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Palomino_Horse.jpg/220px-Palomino_Horse.jpg\" \n" +
-                                    "  width=200 height=150 /></td>\n" +
-                                    "<td><img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Palomino_Horse.jpg/220px-Palomino_Horse.jpg\" \n" +
-                                    "  width=200 height=150 /></td>\n" +
-                                    "<td><img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Palomino_Horse.jpg/220px-Palomino_Horse.jpg\" \n" +
-                                    "  width=200 height=150 /></td>");
-                        out.println("</tr>");
-                        out.println("<tr>");
-                        out.println("<td><h2>Nombre:</h2></td>\n" +
-                "                   <td>Zeus</td>\n" +
-                "                   <td>Bucéfalos</td>\n" +
-                "                   <td>Millonario</td>\n" +
-                "                   <td>Relámpago</td>");
-                        out.println("</tr>");
-                    out.println("</table><br>");
-                out.println("</center>");
-            out.println("</body>");
-            out.println("</html>");
+            apuesta4=Double.parseDouble (request.getParameter("txtApuesta4"));*/
+//            ///XDDD
+//            out.println("<!DOCTYPE html>");
+//            out.println("<html>");
+//            out.println("<head>");
+//            out.println("<title>Servlet Apuesta</title>");            
+//            out.println("</head>");
+//            out.println("<body>");
+//                out.println("<center>");
+//                    out.println("<h1>HORSE GAME</h1><br><br>");
+//                    out.println("<table>");
+//                        out.println("<tr>");
+//                            out.println("<td><h2>Numero caballo:</h2></td> \n" +
+//                        "                <td><h2><center>1</center></h2></td>\n" +
+//                        "                <td><h2><center>2</center></h2></td>\n" +
+//                        "                <td><h2><center>3</center></h2></td>\n" +
+//                        "                <td><h2><center>4</center></h2></td>");
+//                        out.println("</tr>");
+//                        out.println("<tr>");
+//                        out.println("<td><h2>Presentacion:</h2></td>\n" +
+//                                    "<td><img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Palomino_Horse.jpg/220px-Palomino_Horse.jpg\" \n" +
+//                                    "  width=200 height=150 /></td>\n" +
+//                                    "<td><img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Palomino_Horse.jpg/220px-Palomino_Horse.jpg\" \n" +
+//                                    "  width=200 height=150 /></td>\n" +
+//                                    "<td><img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Palomino_Horse.jpg/220px-Palomino_Horse.jpg\" \n" +
+//                                    "  width=200 height=150 /></td>\n" +
+//                                    "<td><img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Palomino_Horse.jpg/220px-Palomino_Horse.jpg\" \n" +
+//                                    "  width=200 height=150 /></td>");
+//                        out.println("</tr>");
+//                        out.println("<tr>");
+//                        out.println("<td><h2>Nombre:</h2></td>\n" +
+//                "                   <td>Zeus</td>\n" +
+//                "                   <td>Bucéfalos</td>\n" +
+//                "                   <td>Millonario</td>\n" +
+//                "                   <td>Relámpago</td>");
+//                        out.println("</tr>");
+//                    out.println("</table><br>");
+//                out.println("</center>");
+//            out.println("</body>");
+//            out.println("</html>");
         }
     }
 

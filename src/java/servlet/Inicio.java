@@ -5,6 +5,7 @@
  */
 package servlet;
 
+import Clases.Jugador;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -19,7 +20,37 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "Inicio", urlPatterns = {"/Inicio"})
 public class Inicio extends HttpServlet {
+    
+    private final int NUMERO_JUGADORES = 4;
+    private final Jugador[] jugadores = new Jugador[NUMERO_JUGADORES];;
+    
+    
+    /**
+     * Manda la respuesta usual: Los jugadores.
+     */
+    private void response(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException{
+        request.setAttribute("jugadores", jugadores);
+        request.getRequestDispatcher("main.jsp").forward(request, response);
+    }
+    
+    /**
+     * Manejaremos un error en caso de que el valor de una apuesta sea inválida, que no vaya a ser que 
+     * alguien con poco dinero apueste la fortuna que no tiene.
+     * Para esto, mandaremos el mensaje y el detalle (Como qué jugador fue).
+     * @param request
+     * @param response
+     * @param errDetails
+     * @throws ServletException
+     * @throws IOException 
+     */
+    private void responseWithError(HttpServletRequest request, HttpServletResponse response, String errDetails)
+            throws ServletException, IOException{
+        request.setAttribute("jugadores", jugadores);
+        request.setAttribute("error", "Error de apuesta: " + errDetails);
 
+        request.getRequestDispatcher("main.jsp").forward(request, response);
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -31,200 +62,58 @@ public class Inicio extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            
-            out.println("<head>");
-            out.println("<title>Inicio</title>");            
-            out.println("</head>");
-            
-            out.println("<body>");
-            out.println("<center>");
-                out.println("<h1>HORSE GAME</h1><br><br>");
-                out.println("<table>");
-                    out.println("<tr>");
-                        out.println("<td><h2>Numero caballo:</h2></td> \n" +
-                    "                <td><h2><center>1</center></h2></td>\n" +
-                    "                <td><h2><center>2</center></h2></td>\n" +
-                    "                <td><h2><center>3</center></h2></td>\n" +
-                    "                <td><h2><center>4</center></h2></td>");
-                    out.println("</tr>");
-                    out.println("<tr>");
-                    out.println("<td><h2>Presentacion:</h2></td>\n" +
-                                "<td><img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Palomino_Horse.jpg/220px-Palomino_Horse.jpg\" \n" +
-                                "  width=200 height=150 /></td>\n" +
-                                "<td><img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Palomino_Horse.jpg/220px-Palomino_Horse.jpg\" \n" +
-                                "  width=200 height=150 /></td>\n" +
-                                "<td><img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Palomino_Horse.jpg/220px-Palomino_Horse.jpg\" \n" +
-                                "  width=200 height=150 /></td>\n" +
-                                "<td><img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Palomino_Horse.jpg/220px-Palomino_Horse.jpg\" \n" +
-                                "  width=200 height=150 /></td>");
-                    out.println("</tr>");
-                    out.println("<tr>");
-                    out.println("<td><h2>Nombre:</h2></td>\n" +
-            "                   <td>Zeus</td>\n" +
-            "                   <td>Bucéfalos</td>\n" +
-            "                   <td>Millonario</td>\n" +
-            "                   <td>Relámpago</td>");
-                    out.println("</tr>");
-                out.println("</table><br>");
-            out.println("</center>");
-            
-            out.println("<center>");
-                out.println("<form action=\"Apuesta\" method=\"get\">");
-                    out.println("<table style=\"border: 1px solid black\" size=\"90%\">");
-                        out.println("<tr>");
-                            out.println("<td>");
-                                out.println("<table>");
-                                    out.println("<tr>");
-                                    
-                                        out.println("<td>");
-                                            out.println("Nombre Jugador 1: ");
-                                        out.println("</td>");
-                                        out.println("<td>");
-                                            out.println("<input type=\"text\" name=\"txtJugador1\" size=\"12\"> <br>");
-                                        out.println("</td>");
-                                    out.println("</tr>");
-                                    out.println("<tr>");
-                                        out.println("<td>");
-                                            out.println("Apuesta : ");
-                                        out.println("</td>");
-                                        out.println("<td>");
-                                            out.println("<input type=\"text\" name=\"txtApuesta1\" maxlength=\"5\" size=\"3\"><br>");
-                                        out.println("</td>");
-                                    out.println("</tr>");
-                                    out.println("<tr>");
-                                        out.println("<td>");
-                                            out.println("Caballo a apostar: ");
-                                        out.println("</td>");
-                                        out.println("<td>");
-                                            out.println("<select name=\"cmbCaballoApostar1\">\n" +
-                                                    "  <option value=\"1\">1</option>\n" +
-                                                    "  <option value=\"2\">2</option>\n" +
-                                                    "  <option value=\"3\">3</option>\n" +
-                                                    "  <option value=\"4\">4</option>\n" +
-                                                    "</select>");
-                                        out.println("</td>");
-                                    out.println("</tr>");
-                                out.println("</table>");
-                            out.println("</td>");
-                            
-                            out.println("<td>");
-                                out.println("<table>");
-                                    out.println("<tr>");
-                                        out.println("<td>");
-                                            out.println("Nombre Jugador 2: ");
-                                        out.println("</td>");
-                                        out.println("<td>");
-                                            out.println("<input type=\"text\" name=\"txtJugador2\" size=\"12\"> <br>");
-                                        out.println("</td>");
-                                    out.println("</tr>");
-                                    out.println("<tr>");
-                                        out.println("<td>");
-                                            out.println("Apuesta : ");
-                                        out.println("</td>");
-                                        out.println("<td>");
-                                            out.println("<input type=\"text\" name=\"txtApuesta2\" maxlength=\"5\" size=\"3\"><br>");
-                                        out.println("</td>");
-                                    out.println("</tr>");
-                                    out.println("<tr>");
-                                        out.println("<td>");
-                                            out.println("Caballo a apostar: ");
-                                        out.println("</td>");
-                                        out.println("<td>");
-                                            out.println("<select name=\"cmbCaballoApostar2\">\n" +
-                                                    "  <option value=\"1\">1</option>\n" +
-                                                    "  <option value=\"2\">2</option>\n" +
-                                                    "  <option value=\"3\">3</option>\n" +
-                                                    "  <option value=\"4\">4</option>\n" +
-                                                    "</select>");
-                                        out.println("</td>");
-                                    out.println("</tr>");
-                                out.println("</table>");
-                            out.println("</td>");
-                        out.println("</tr>");
-                        
-                        out.println("<tr>");    
-                            out.println("<td>");
-                                out.println("<table>");
-                                    out.println("<tr>");
-                                        out.println("<td>");
-                                            out.println("Nombre Jugador 3: ");
-                                        out.println("</td>");
-                                        out.println("<td>");
-                                            out.println("<input type=\"text\" name=\"txtJugador3\" size=\"12\"> <br>");
-                                        out.println("</td>");
-                                    out.println("</tr>");
-                                    out.println("<tr>");
-                                        out.println("<td>");
-                                            out.println("Apuesta : ");
-                                        out.println("</td>");
-                                        out.println("<td>");
-                                            out.println("<input type=\"text\" name=\"txtApuesta3\" maxlength=\"5\" size=\"3\"><br>");
-                                        out.println("</td>");
-                                    out.println("</tr>");
-                                    out.println("<tr>");
-                                        out.println("<td>");
-                                            out.println("Caballo a apostar: ");
-                                        out.println("</td>");
-                                        out.println("<td>");
-                                            out.println("<select name=\"cmbCaballoApostar3\">\n" +
-                                                    "  <option value=\"1\">1</option>\n" +
-                                                    "  <option value=\"2\">2</option>\n" +
-                                                    "  <option value=\"3\">3</option>\n" +
-                                                    "  <option value=\"4\">4</option>\n" +
-                                                    "</select>");
-                                        out.println("</td>");
-                                    out.println("</tr>");
-                                out.println("</table>");
-                            out.println("</td>");
-                            
-                            out.println("<td>");
-                                out.println("<table>");
-                                    out.println("<tr>");
-                                        out.println("<td>");
-                                            out.println("Nombre Jugador 4: ");
-                                        out.println("</td>");
-                                        out.println("<td>");
-                                            out.println("<input type=\"text\" name=\"txtJugador4\" size=\"12\"> <br>");
-                                        out.println("</td>");
-                                    out.println("</tr>");
-                                    out.println("<tr>");
-                                        out.println("<td>");
-                                            out.println("Apuesta : ");
-                                        out.println("</td>");
-                                        out.println("<td>");
-                                            out.println("<input type=\"text\" name=\"txtApuesta4\" maxlength=\"5\" size=\"3\"><br>");
-                                        out.println("</td>");
-                                    out.println("</tr>");
-                                    out.println("<tr>");
-                                        out.println("<td>");
-                                            out.println("Caballo a apostar: ");
-                                        out.println("</td>");
-                                        out.println("<td>");
-                                            out.println("<select name=\"cmbCaballoApostar4\">\n" +
-                                                    "  <option value=\"1\">1</option>\n" +
-                                                    "  <option value=\"2\">2</option>\n" +
-                                                    "  <option value=\"3\">3</option>\n" +
-                                                    "  <option value=\"4\">4</option>\n" +
-                                                    "</select>");
-                                        out.println("</td>");
-                                    out.println("</tr>");
-                                out.println("</table>");
-                            out.println("</td>");
-                        out.println("</tr>");
-                    out.println("</table><br>");
-                    out.println("<input type=\"submit\"  value=\"Jugar\" name=\"btnJugar\"><br>");
-                out.println("</form>");
-            out.println("</center>");
-            
-            out.println("</body>");
-            out.println("</html>");
+        inicializarJuego();
+        response(request, response);
+    }
+    
+    /**
+     * Maneja el método POST del servlet para hacer las operaciones a la hora de apostar.
+     * Handles the HTTP <code>POST</code> method.
+     * 
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        for (int i = 0; i < NUMERO_JUGADORES; i++){
+            //A el jugador en la posición i le valos a asignar un valor de apuesta.
+            //Este valor de apuesta viene en el cuerpo de la petición con un ID en formato "apuesta-jugador#"
+            //El tipo de dato de este valor es un String, por lo que debemos parsearlo a Double para poder utilizarlo en nuestra función.
+            String apuesta = request.getParameter("apuesta-jugador" + (i + 1));
+            jugadores[i].setCantidadApostar(Double.parseDouble(apuesta));
+            if(!jugadores[i].puedeApostar()){
+                String err = String.format(
+                        "El jugador %s no tiene dinero suficiente para apostar. Dinero actual: %.2f. Dinero apostado: %.2f", 
+                        jugadores[i].getNombre(), 
+                        jugadores[i].getSaldo(), 
+                        jugadores[i].getCantidadApostar());
+                System.out.println(err);
+                responseWithError(request, response, err);
+                break;
+            }
         }
+        
+        for (Jugador j : jugadores){
+            j.aplicarApuesta();
+        }
+        response(request, response);
     }
 
+    
+    /**
+     * Crea los 4 jugadores y les asigna el valor inicial
+     */
+    private void inicializarJuego(){
+        jugadores[0] = new Jugador("Santiago", 1000);
+        jugadores[1] = new Jugador("Sebastián", 1000);
+        jugadores[2] = new Jugador("Felipe", 1000);
+        jugadores[3] = new Jugador("Daniel", 1000);
+    }
+    
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -240,19 +129,6 @@ public class Inicio extends HttpServlet {
         processRequest(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
 
     /**
      * Returns a short description of the servlet.
